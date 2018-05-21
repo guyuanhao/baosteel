@@ -1,9 +1,12 @@
 <div id="example" ng-app="comosAngularjsApp">
   <div ng-controller="MainCtrl as main">
-      <kendo-grid options="main.mainGridOptions">
-      </kendo-grid>
       
-      <kendo-grid options="main.mainGridOptions" style="margin-top: 50px;">
+      <kendo-grid options="main.tableMaintenance" >
       </kendo-grid>
+
+      <kendo-grid options="main.tableInfo" style="margin-top: 50px;">
+      </kendo-grid>
+
+
   </div>
 </div>
