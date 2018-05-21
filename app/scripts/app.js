@@ -10,7 +10,8 @@
  */
 angular
   .module('comosAngularjsApp', [
-    'ngRoute'
+    'ngRoute',
+    'kendo.directives'
   ])
   .config(function ($routeProvider) {
     $routeProvider

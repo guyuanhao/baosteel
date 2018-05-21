@@ -14,6 +14,12 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <!-- kendo ui link -->
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.common.min.css"/>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.rtl.min.css"/>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.silver.min.css"/>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.516/styles/kendo.mobile.all.min.css"/>
+    <!-- endbuild -->
   </head>
   <body ng-app="comosAngularjsApp">
     <!--[if lte IE 8]>
@@ -33,15 +39,15 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="#/">Hello Yuanhao</a>
+            <a class="navbar-brand" href="/">Hello Comos</a>
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/about">About</a></li>
-              <li><a ng-href="#/">Contact</a></li>
+              <li class="active"><a href="#!">Home</a></li>
+              <li><a ng-href="#!about">About</a></li>
+              <li><a ng-href="#!">Contact</a></li>
             </ul>
           </div>
         </div>
@@ -54,7 +60,7 @@
 
     <div class="footer">
       <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+        <p><span class="glyphicon glyphicon-heart"></span> from the comos team</p>
       </div>
     </div>
 
@@ -72,8 +78,8 @@
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <!-- endbower -->
@@ -84,5 +90,8 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <!-- endbuild -->
+    <!-- kendo ui link -->
+    <script src="https://kendo.cdn.telerik.com/2018.2.516/js/kendo.all.min.js"></script>
+    <!-- endbuild -->
 </body>
 </html>
