@@ -64,9 +64,9 @@ angular.module('comosAngularjsApp')
       scrollable: true,
       dataSource: {
         type: "odata",
-        // transport: {
-        //   // read: "//demos.telerik.com/kendo-ui/service/Northwind.svc/Employees"
-        // }
+        transport: {
+          read: "http://localhost:57417/api/maintenance"
+      }
     },
     columns: [{
           field: "",
