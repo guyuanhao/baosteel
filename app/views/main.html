@@ -1,7 +1,11 @@
 <div id="example" ng-app="comosAngularjsApp">
   <div ng-controller="MainCtrl as main">
-      
-      <kendo-grid options="main.tableMaintenance" >
+
+      <div>
+          <input class=k-textbox type=text id="txtSearchString" placeholder="enter search text..." />
+          <button id="btnSearch" ng-click="searchMaintenanceTable()">Search</button>
+      </div>
+      <kendo-grid options="main.tableMaintenance" k-data-source="main.maintenanceDataSource">
       </kendo-grid>
 
       <kendo-grid options="main.tableInfo" style="margin-top: 50px;">

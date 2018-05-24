@@ -8,22 +8,30 @@
  * Controller of the comosAngularjsApp
  */
 angular.module('comosAngularjsApp')
-  .controller('MainCtrl', function ($scope,$http) {
+  .controller('MainCtrl', function ($scope, $http) {
     var self = this;
     var maintenanceItems;
     
+    self.maintenanceDataSource = new kendo.data.DataSource({
+      pageSize: 20,
+      transport: {
+          read: serverAddress + "maintenance"
+      },
+      schema: {
+        model: {
+          fields: {
+            devicE_ID: { type: "string" },
+            creatE_DATE: { type:"date" }
+          }
+        }
+      },
+    })
 
     self.tableMaintenance={
       toolbar: ["create","save","cancel","pdf"],
       pageable: true,
       editable: true,
       scrollable: true,
-      dataSource: {
-        pageSize: 20,
-        transport: {
-            read: serverAddress + "maintenance"
-        }
-      },
       columns: [{
             field: "devicE_ID",
             title: "设备号",
@@ -52,7 +60,7 @@ angular.module('comosAngularjsApp')
           },{
             field: "creatE_DATE",
             title: "录入时间",
-            width: "120px" 
+            width: "200px"
           },{
             field: "responsible",
             title: "责任人",
@@ -81,7 +89,8 @@ angular.module('comosAngularjsApp')
           field: "devicE_ID",
           title: "设备号",
           headerAttributes: {"ng-non-bindable": true},
-          width: "120px"
+          width: "120px",
+          type: "string"
         },{
           field: "projecT_NAME",
           title: "点检项目",
@@ -101,7 +110,8 @@ angular.module('comosAngularjsApp')
         },{
           field: "checK_DATE",
           title: "当前时间",
-          width: "120px" 
+          width: "200px",
+          type:"date"
         },{
           field: "responsible",
           title: "责任人",
@@ -122,6 +132,35 @@ angular.module('comosAngularjsApp')
     { 
       // code that will be executed ... 
       // every time this view is loaded
+      $http.get(serverAddress + "maintenance").then(function(response){
+        self.maintenanceItems = response.data;
+        console.log(self.maintenanceItems)
+      })
     });
+
+    //filter table
+    $scope.searchMaintenanceTable = function(){
+      var q = $("#txtSearchString").val();
+      // self.maintenanceDataSource.query({
+      //   page:1,
+      //   pageSize:20,
+      //   filter:{
+      //     logic:"or",
+      //     filters:[
+      //       {field:"devicE_ID", operator:"contains",value:q}
+      //       ]
+      //    }
+      // });
+      self.maintenanceDataSource.filter({
+        logic: "or",
+        filters: [
+          { field:"devicE_ID", operator:"contains",value:q },
+          { field: "projecT_NAME", operator: "contains", value: q },
+          { field: "detail", operator: "contains", value: q },
+        ]
+      });
+    };
+
+
 
   });
