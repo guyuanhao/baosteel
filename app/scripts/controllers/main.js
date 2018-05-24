@@ -140,23 +140,14 @@ angular.module('comosAngularjsApp')
 
     //filter table
     $scope.searchMaintenanceTable = function(){
-      var q = $("#txtSearchString").val();
-      // self.maintenanceDataSource.query({
-      //   page:1,
-      //   pageSize:20,
-      //   filter:{
-      //     logic:"or",
-      //     filters:[
-      //       {field:"devicE_ID", operator:"contains",value:q}
-      //       ]
-      //    }
-      // });
+      console.log("aa");
       self.maintenanceDataSource.filter({
         logic: "or",
         filters: [
-          { field:"devicE_ID", operator:"contains",value:q },
-          { field: "projecT_NAME", operator: "contains", value: q },
-          { field: "detail", operator: "contains", value: q },
+          { field:"devicE_ID", operator:"contains",value:self.maintenanceSearch },
+          { field: "projecT_NAME", operator: "contains", value:self.maintenanceSearch },
+          { field: "detail", operator: "contains", value:self.maintenanceSearch },
+          { field: "keY_POINT", operator: "contains", value:self.maintenanceSearch }
         ]
       });
     };
