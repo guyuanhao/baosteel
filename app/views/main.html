@@ -3,14 +3,20 @@
 
       <div class="slinput" ng-init="">
           <i class="fa fa-search left-icon"></i> 
-          <input ng-keyup="searchMaintenanceTable()" placeholder="enter search text..." ng-model="main.maintenanceSearch"/> 
+          <input ng-keyup="main.searchMaintenanceTable()" placeholder="enter search text..." ng-model="main.maintenanceSearch"/> 
           <i ng-class="{'fa' : true, 'fa-close' : true, 'right-icon' : true, active : (main.maintenanceSearch.length > 0)}" 
-            ng-click="main.maintenanceSearch = '';searchMaintenanceTable()"></i>
+            ng-click="main.maintenanceSearch = '';main.searchMaintenanceTable()"></i>
       </div>
       <kendo-grid options="main.tableMaintenance" k-data-source="main.maintenanceDataSource">
       </kendo-grid>
 
-      <kendo-grid options="main.tableInfo" style="margin-top: 50px;">
+      <div class="slinput" ng-init="" style="margin-top: 50px;">
+        <i class="fa fa-search left-icon"></i> 
+        <input ng-keyup="main.searchInfoTable()" placeholder="enter search text..." ng-model="main.infoSearch"/> 
+        <i ng-class="{'fa' : true, 'fa-close' : true, 'right-icon' : true, active : (main.infoSearch.length > 0)}" 
+          ng-click="main.infoSearch = '';main.searchInfoTable()"></i>
+      </div>
+      <kendo-grid options="main.tableInfo" k-data-source="main.infoDataSource">
       </kendo-grid>
 
 
