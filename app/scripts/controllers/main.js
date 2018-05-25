@@ -66,6 +66,7 @@ angular.module('comosAngularjsApp')
     self.tableMaintenance={
       toolbar: ["create","save","cancel","pdf"],
       pageable: true,
+      sortable:true,
       editable: true,
       scrollable: true,
       selectable:true,
@@ -173,6 +174,7 @@ angular.module('comosAngularjsApp')
 
     self.tableInfo={
       toolbar: ["create","save","cancel","pdf"],
+      sortable:true,
       pageable: true,
       editable: true,
       scrollable: true,
