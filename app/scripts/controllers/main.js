@@ -15,35 +15,46 @@ angular.module('comosAngularjsApp')
     self.maintenanceDataSource = new kendo.data.DataSource({
       pageSize: 20,
       transport: {
-          read: function(e) {
-            //use AngularJS $http/$resource to fetch the data
-            //when data is fetched call o.success(result); where result is the data array
-            $http.get(serverAddress + "maintenance").then(function(response){
-              self.maintenanceItems = response.data;
-              e.success(self.maintenanceItems);
-              console.log(self.maintenanceItems);
-            })
-          },
-          update: function (e) {
-            $http.put(serverAddress + "maintenance/" + e.data.id, e.data).then(function(response){
-              e.success();
-            })
-          },
-          destroy:function (e){
-              $http.delete(serverAddress + "maintenance/" + e.data.id).then(function(response){
-                e.success();
-              },function(error){
-                console.log("error");
-                e.error();
-              })
-            }
+        create:function(e){
+          var temp = [];
+          delete e.data.id;
+          temp.push(e.data)
+          console.log(temp);
+          $http.post(serverAddress + "maintenance", temp).then(function(response){
+            e.success();
+            self.maintenanceItems.push(response.data);
+            console.log(self.maintenanceItems)
+          })
+        },
+        read:function(e) {
+          //use AngularJS $http/$resource to fetch the data
+          //when data is fetched call o.success(result); where result is the data array
+          $http.get(serverAddress + "maintenance").then(function(response){
+            self.maintenanceItems = response.data;
+            e.success(self.maintenanceItems);
+            console.log(self.maintenanceItems);
+          })
+        },
+        update:function (e) {
+          $http.put(serverAddress + "maintenance/" + e.data.id, e.data).then(function(response){
+            e.success();
+          })
+        },
+        destroy:function (e){
+          $http.delete(serverAddress + "maintenance/" + e.data.id).then(function(response){
+            e.success();
+          },function(error){
+            console.log("error");
+            e.error();
+          })
+        }
           
       },
       schema: {
         model: {
           id: "id",
           fields: {
-            devicE_ID: { editable: false, type: "string" },
+            devicE_ID: { type: "string" },
             creatE_DATE: { type:"date" }
           }
         }
