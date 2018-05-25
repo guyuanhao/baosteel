@@ -12,7 +12,9 @@ angular.module('comosAngularjsApp')
     var self = this;
     var maintenanceItems;
     var infoItems;
-    
+  
+
+
     /*************************** Maintenance Table  **********************************/
     self.maintenanceDataSource = new kendo.data.DataSource({
       pageSize: 20,
@@ -65,6 +67,9 @@ angular.module('comosAngularjsApp')
 
     self.tableMaintenance={
       toolbar: ["create","save","cancel","pdf"],
+      pdf: {
+        allPages: true
+      },
       pageable: true,
       sortable:true,
       editable: true,
@@ -174,6 +179,9 @@ angular.module('comosAngularjsApp')
 
     self.tableInfo={
       toolbar: ["create","save","cancel","pdf"],
+      pdf: {
+        allPages: true
+      },
       sortable:true,
       pageable: true,
       editable: true,

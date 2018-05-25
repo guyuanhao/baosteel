@@ -1,6 +1,5 @@
 <div id="example" ng-app="comosAngularjsApp">
   <div ng-controller="MainCtrl as main">
-
       <div class="slinput" ng-init="">
           <i class="fa fa-search left-icon"></i> 
           <input ng-keyup="main.searchMaintenanceTable()" placeholder="enter search text..." ng-model="main.maintenanceSearch"/> 
@@ -74,4 +73,16 @@
     position:relative;
     width:100%;
   }
+  /* ******************************************************************************************* */
+
+  @font-face {
+    font-family: "Segoe UI";
+    src: url("app/fonts/segoeuil.ttf") format("truetype");
+  }
+
+  .kendo-grid {
+    font-family: "Segoe UI", "Arial", sans-serif;
+  }
+
 </style>
+
