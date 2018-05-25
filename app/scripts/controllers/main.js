@@ -12,6 +12,7 @@ angular.module('comosAngularjsApp')
     var self = this;
     var maintenanceItems;
     
+    /*************************** Maintenance Table  **********************************/
     self.maintenanceDataSource = new kendo.data.DataSource({
       pageSize: 20,
       transport: {
@@ -110,7 +111,9 @@ angular.module('comosAngularjsApp')
             }
         ]
     };
+    /*************************** Maintenance Table End  **********************************/
 
+    /*************************** Info Table **********************************/
     self.tableInfo={
       editable: true,
       scrollable: true,
@@ -160,6 +163,7 @@ angular.module('comosAngularjsApp')
           width: "120px"
         }]
     };
+    /*************************** Info Table End **********************************/
 
 
     $scope.$on('$viewContentLoaded', function(event)
