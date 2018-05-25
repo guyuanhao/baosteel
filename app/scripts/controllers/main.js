@@ -15,40 +15,26 @@ angular.module('comosAngularjsApp')
     self.maintenanceDataSource = new kendo.data.DataSource({
       pageSize: 20,
       transport: {
-          read: function(o) {
+          read: function(e) {
             //use AngularJS $http/$resource to fetch the data
             //when data is fetched call o.success(result); where result is the data array
             $http.get(serverAddress + "maintenance").then(function(response){
               self.maintenanceItems = response.data;
-              o.success(self.maintenanceItems);
+              e.success(self.maintenanceItems);
               console.log(self.maintenanceItems);
             })
           },
           update: function (e) {
-            // $http.put(serverAddress + "maintenance/" + e.data.id, e.data).then(function(response){
-            //   var updateItems = e.data.models;
-            //   console.log(response);
-            //   console.log(e);
-            //   // batch is enabled
-            //   //var updateItems = e.data.models;
-            //   // batch is disabled
-            //   // var updatedItem = e.data;
-
-            //   // save the updated item to the original datasource
-            //   // ...
-
-            //   // on success
-            //   //e.success();
-            //   // on failure
-            //   //e.error("XHR response", "status code", "error message");
-            // })
-            
+            $http.put(serverAddress + "maintenance/" + e.data.id, e.data).then(function(response){
+              e.success();
+            })
           },
           destroy:function (e){
               $http.delete(serverAddress + "maintenance/" + e.data.id).then(function(response){
-                console.log("OK"), function(error){
-                  console.log("error")
-                }
+                e.success();
+              },function(error){
+                console.log("error");
+                e.error();
               })
             }
           
