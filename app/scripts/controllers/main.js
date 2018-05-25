@@ -68,6 +68,7 @@ angular.module('comosAngularjsApp')
       pageable: true,
       editable: true,
       scrollable: true,
+      selectable:true,
       columns: [{
             field: "devicE_ID",
             title: "设备号",
@@ -158,8 +159,13 @@ angular.module('comosAngularjsApp')
           id: "id",
           fields: {
             devicE_ID: { type: "string" },
-            checK_DATE: { type:"date" },
-            iF_CHECK: {type:"boolean"}
+            checK_DATE: { 
+              type:"date",
+              editable:false
+            },
+            iF_CHECK: {
+              type:"boolean"
+            },
           }
         }
       },
@@ -174,8 +180,7 @@ angular.module('comosAngularjsApp')
             field: "devicE_ID",
             title: "设备号",
             headerAttributes: {"ng-non-bindable": true},
-            width: "120px",
-            type: "string"
+            width: "120px"
           },{
             field: "projecT_NAME",
             title: "点检项目",
@@ -195,8 +200,7 @@ angular.module('comosAngularjsApp')
           },{
             field: "checK_DATE",
             title: "当前时间",
-            width: "200px",
-            type:"date"
+            width: "200px"
           },{
             field: "responsible",
             title: "责任人",
@@ -214,7 +218,18 @@ angular.module('comosAngularjsApp')
             title: "&nbsp;",
             width: "100px" 
           }
-        ]
+        ],
+        selectable:true,
+        save:function(data){
+          if(!data.model.iF_CHECK){
+            console.log("data checked!");
+            data.model.checK_DATE = new Date();
+          }
+          else{
+            console.log("data unchecked!")
+            data.model.checK_DATE = null;
+          }
+        }
     };
     /*************************** Info Table End **********************************/
 
@@ -249,7 +264,6 @@ angular.module('comosAngularjsApp')
         ]
       });
     };
-
 
 
 
