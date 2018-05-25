@@ -160,6 +160,7 @@ angular.module('comosAngularjsApp')
         }
           
       },
+      sort: { field: "iF_CHECK", dir: "asce" },
       schema: {
         model: {
           id: "id",
@@ -170,7 +171,7 @@ angular.module('comosAngularjsApp')
               editable:false
             },
             iF_CHECK: {
-              type:"boolean"
+              type:"boolean",
             },
           }
         }
