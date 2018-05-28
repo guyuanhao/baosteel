@@ -58,7 +58,6 @@ angular.module('comosAngularjsApp')
         model: {
           id: "id",
           fields: {
-            devicE_ID: { type: "string" },
             creatE_DATE: { type:"date" }
           }
         }
@@ -165,7 +164,6 @@ angular.module('comosAngularjsApp')
         model: {
           id: "id",
           fields: {
-            devicE_ID: { type: "string" },
             checK_DATE: { 
               type:"date",
               editable:false
@@ -173,13 +171,34 @@ angular.module('comosAngularjsApp')
             iF_CHECK: {
               type:"boolean",
             },
+            devicE_ID:{
+              editable:false
+            },
+            projecT_NAME:{
+              editable:false
+            },
+            detail:{
+              editable:false
+            },
+            keY_POINT:{
+              editable:false
+            },
+            indication:{
+              editable:false
+            },
+            checK_DATE:{
+              editable:false
+            },
+            responsible:{
+              editable:false
+            },
           }
         }
       },
     })
 
     self.tableInfo={
-      toolbar: ["create","save","cancel","excel"],
+      toolbar: ["save","cancel","excel"],
       pdf: {
         allPages: true
       },
@@ -232,13 +251,16 @@ angular.module('comosAngularjsApp')
         ],
         selectable:true,
         save:function(data){
-          if(!data.model.iF_CHECK){
-            console.log("data checked!");
-            data.model.checK_DATE = new Date();
-          }
-          else{
-            console.log("data unchecked!")
-            data.model.checK_DATE = null;
+          console.log(data.values);
+          if('iF_CHECK' in data.values){
+            if(data.values.iF_CHECK){
+              console.log("data checked!");
+              data.model.checK_DATE = new Date();
+            }
+            else{
+              console.log("data unchecked!")
+              data.model.checK_DATE = null;
+            }
           }
         }
     };
