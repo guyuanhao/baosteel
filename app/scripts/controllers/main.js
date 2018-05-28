@@ -12,7 +12,7 @@ angular.module('comosAngularjsApp')
     var self = this;
     var maintenanceItems;
     var infoItems;
-  
+    var targetTime;
 
 
     /*************************** Maintenance Table  **********************************/
@@ -75,6 +75,10 @@ angular.module('comosAngularjsApp')
       scrollable: true,
       selectable:true,
       columns: [{
+            field:"id",
+            title:"",
+            headerAttributes: {"ng-show": false}
+          },{
             field: "devicE_ID",
             title: "设备号",
             headerAttributes: {"ng-non-bindable": true},
@@ -112,10 +116,26 @@ angular.module('comosAngularjsApp')
             title: "备注",
             width: "120px"
           },{ 
-              command: ["destroy"],
+              command: [
+              {
+                name: "添加点检",
+                click: function(e, choosedMaintenance) {
+                    // prevent page scroll position change
+                    e.preventDefault();
+                    // e.target is the DOM element representing the button
+                    var itemId = $(e.target).closest("tr")[0].cells[0].textContent;
+                    console.log(itemId);
+                    choosedMaintenance = itemId;
+                    // Get the modal
+                    var modal = document.getElementById('myModal');
+                    // When the user clicks on the button, open the modal 
+                    modal.style.display = "block";
+
+                  }
+                },"destroy"],
               title: "&nbsp;",
-              width: "100px" 
-            }
+              width: "200px" 
+          }
         ]
     };
     /*************************** Maintenance Table End  **********************************/
@@ -297,6 +317,24 @@ angular.module('comosAngularjsApp')
         ]
       });
     };
+
+    //close modal
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+    }
+
 
 
 
