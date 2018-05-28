@@ -66,7 +66,7 @@ angular.module('comosAngularjsApp')
     })
 
     self.tableMaintenance={
-      toolbar: ["create","save","cancel","pdf"],
+      toolbar: ["create","save","cancel","excel"],
       pdf: {
         allPages: true
       },
@@ -179,7 +179,7 @@ angular.module('comosAngularjsApp')
     })
 
     self.tableInfo={
-      toolbar: ["create","save","cancel","pdf"],
+      toolbar: ["create","save","cancel","excel"],
       pdf: {
         allPages: true
       },
