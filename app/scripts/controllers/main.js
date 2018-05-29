@@ -57,7 +57,7 @@ angular.module('comosAngularjsApp')
         model: {
           id: "id",
           fields: {
-            creatE_DATE: { type:"date" }
+            creatE_DATE: { type:"date" },
           }
         }
       },
@@ -75,8 +75,7 @@ angular.module('comosAngularjsApp')
       selectable:true,
       columns: [{
             field:"id",
-            title:"",
-            headerAttributes: {"ng-show": false}
+            title:""
           },{
             field: "devicE_ID",
             title: "设备号",
@@ -125,7 +124,7 @@ angular.module('comosAngularjsApp')
                     this.$angular_scope.choosedItemId = $(e.target).closest("tr")[0].cells[0].textContent;
                     
                     $http.get(serverAddress + "info/checkInfo/" + this.$angular_scope.choosedItemId).then(function(response){
-                      if(response.data.length>0){
+                      if(response.data.length==0){
                         // Get the modal
                         var modal = document.getElementById('myModal');
                         // When the user clicks on the button, open the modal 
