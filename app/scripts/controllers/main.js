@@ -19,7 +19,7 @@ angular.module('comosAngularjsApp')
       pageSize: 20,
       transport: {
         create:function(e){
-          if(!e.data.hasOwnProperty("devicE_ID")){
+          if(!e.data.hasOwnProperty("devicE_ID") && e.data.devicE_ID!=""){
             alert("请输入正确的设备号");
             e.error();
           }
@@ -52,9 +52,19 @@ angular.module('comosAngularjsApp')
           })
         },
         update:function (e) {
-          $http.put(serverAddress + "maintenance/" + e.data.id, e.data).then(function(response){
-            e.success();
-          })
+          if(!e.data.hasOwnProperty("devicE_ID") || e.data.devicE_ID==""){
+            alert("请输入正确的设备号");
+            e.error();
+          }
+          else if (!(e.data.hasOwnProperty("period")&& isNumber(e.data.period))){
+            alert("请输入正确的周期（天）");
+            e.error();
+          }
+          else{
+            $http.put(serverAddress + "maintenance/" + e.data.id, e.data).then(function(response){
+              e.success();
+            })
+          }
         },
         destroy:function (e){
           $http.delete(serverAddress + "maintenance/" + e.data.id).then(function(response){
@@ -70,7 +80,7 @@ angular.module('comosAngularjsApp')
         model: {
           id: "id",
           fields: {
-            creatE_DATE: { type:"date" },
+            creatE_DATE: { type:"date" }
           }
         }
       },
