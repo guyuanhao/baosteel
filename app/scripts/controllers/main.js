@@ -103,7 +103,8 @@ angular.module('comosAngularjsApp')
             field: "devicE_ID",
             title: "设备号",
             headerAttributes: {"ng-non-bindable": true},
-            width: "120px"
+            width: "120px",
+            editable:checkDeviceIdIfEditable
           },{
             field: "projecT_NAME",
             title: "点检项目",
@@ -289,7 +290,6 @@ angular.module('comosAngularjsApp')
       columns: [{
             field: "devicE_ID",
             title: "设备号",
-            headerAttributes: {"ng-non-bindable": true},
             width: "120px"
           },{
             field: "projecT_NAME",
@@ -323,6 +323,7 @@ angular.module('comosAngularjsApp')
             field: "iF_CHECK",
             title: "确认",
             width: "120px",
+            editable:checkIfCheckEditable,
             template:"<span ng-if='#: iF_CHECK #'>已确认</span><span ng-if='!#: iF_CHECK #'>未确认</span>"
           },{
             field: "note",
@@ -456,6 +457,12 @@ angular.module('comosAngularjsApp')
     }
 
     function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
+    function checkDeviceIdIfEditable(dataItem){
+      return (!dataItem.hasOwnProperty("devicE_ID"));
+    }
 
+    function checkIfCheckEditable(dataItem){
+      return (!dataItem.iF_CHECK)
+    }
 
   });
