@@ -169,9 +169,36 @@ angular.module('comosAngularjsApp')
           })
         },
         update:function (e) {
-          $http.put(serverAddress + "info/" + e.data.id, e.data).then(function(response){
-            e.success();
-          })
+          if(e.data.checkFlag){
+            delete e.data.checkFlag;
+            console.log(e.data);
+            $http.put(serverAddress + "info/" + e.data.id, e.data).then(function(response){
+              e.success();
+              /*  create new record */
+              var temp = [];
+              e.data.iF_CHECK = 0;
+              delete e.data.checK_DATE;
+              delete e.data.id;
+              e.data.targeT_TIME = (new Date()).addDays(
+                self.maintenanceItems.find(x => x.id == e.data.maintenancE_ITEM).period
+              )
+              temp.push(e.data)
+              console.log(temp);
+              $http.post(serverAddress + "info", temp).then(function(response){
+                self.infoItems.push(response.data);
+                console.log(self.infoItems);
+                e.success();
+                $('#tableInfo').data('kendoGrid').dataSource.read();
+              })
+            })
+          }
+          else{
+            delete e.data.checkFlag;
+            console.log(e.data);
+            $http.put(serverAddress + "info/" + e.data.id, e.data).then(function(response){
+              e.success();
+            })
+          }
         },
         destroy:function (e){
           $http.delete(serverAddress + "info/" + e.data.id).then(function(response){
@@ -287,11 +314,16 @@ angular.module('comosAngularjsApp')
             if(data.values.iF_CHECK){
               console.log("data checked!");
               data.model.checK_DATE = new Date();
+              data.model.checkFlag = true;
             }
             else{
               console.log("data unchecked!")
               data.model.checK_DATE = null;
+              data.model.checkFlag = false;
             }
+          }
+          else{
+            data.model.checkFlag = false;
           }
         }
     };
@@ -347,31 +379,38 @@ angular.module('comosAngularjsApp')
 
     self.createNewRecord = function(){
       console.log($scope.choosedItemId, self.choosedTargetTime);
-      var item = self.maintenanceItems.find(x => x.id == $scope.choosedItemId);
-      var tempItem = {
-        "devicE_ID": item.devicE_ID,
-        "projecT_NAME": item.projecT_NAME,
-        "detail": item.detail,
-        "keY_POINT": item.keY_POINT,
-        "indication": item.indication,
-        "targeT_TIME": self.choosedTargetTime,
-        "responsible": item.responsible,
-        "iF_CHECK": 0,
-        "note": item.note,
-        "maintenancE_ITEM": $scope.choosedItemId
+      if(self.choosedTargetTime != null){
+        var item = self.maintenanceItems.find(x => x.id == $scope.choosedItemId);
+        var tempItem = {
+          "devicE_ID": item.devicE_ID,
+          "projecT_NAME": item.projecT_NAME,
+          "detail": item.detail,
+          "keY_POINT": item.keY_POINT,
+          "indication": item.indication,
+          "targeT_TIME": self.choosedTargetTime,
+          "responsible": item.responsible,
+          "iF_CHECK": 0,
+          "note": item.note,
+          "maintenancE_ITEM": $scope.choosedItemId
+        }
+        let temp = [];
+        temp.push(tempItem);
+        $http.post(serverAddress + "info", temp).then(function(response){
+          self.infoItems.push(response.data);
+          $('#tableInfo').data('kendoGrid').dataSource.read();
+          modal.style.display = "none";
+          alert("成功录入点检实绩");
+        })
       }
-      var temp = [];
-      temp.push(tempItem)
-      console.log(tempItem);
-      $http.post(serverAddress + "info", temp).then(function(response){
-        self.infoItems.push(response.data);
-        console.log(self.infoItems);
-        $('#tableInfo').data('kendoGrid').dataSource.read();
-        modal.style.display = "none";
-        alert("成功录入点检实绩");
-      })
+      else{
+        alert("请输入目标时间")
+      }
+    }
 
-      
+    Date.prototype.addDays = function(days) {
+      var dat = new Date(this.valueOf());
+      dat.setDate(dat.getDate() + days);
+      return dat;
     }
 
 
