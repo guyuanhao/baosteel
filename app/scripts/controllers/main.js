@@ -214,7 +214,8 @@ angular.module('comosAngularjsApp')
               e.success();
             })
           }
-        },
+        }
+/*         ,
         destroy:function (e){
           $http.delete(serverAddress + "info/" + e.data.id).then(function(response){
             e.success();
@@ -222,7 +223,7 @@ angular.module('comosAngularjsApp')
             console.log("error");
             e.error();
           })
-        }
+        } */
           
       },
       sort: { field: "iF_CHECK", dir: "asce" },
@@ -267,7 +268,7 @@ angular.module('comosAngularjsApp')
     })
 
     self.tableInfo={
-      toolbar: ["save","cancel","excel"],
+      toolbar: ["excel"],
       pdf: {
         allPages: true
       },
@@ -318,9 +319,9 @@ angular.module('comosAngularjsApp')
             title: "备注",
             width: "120px"
           },{ 
-            command: ["edit","destroy"],
+            command: ["edit"],
             title: "&nbsp;",
-            width: "200px" 
+            width: "100px" 
           }
         ],
         selectable:true,
