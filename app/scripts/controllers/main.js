@@ -341,6 +341,14 @@ angular.module('comosAngularjsApp')
           else{
             data.model.checkFlag = false;
           }
+        },
+        excelExport: function(e) {
+          //change excel data format
+          console.log(e);
+          var sheet = e.workbook.sheets[0];
+          for (var rowIndex = 1; rowIndex < sheet.rows.length; rowIndex++) {
+            sheet.rows[rowIndex].cells[8].value = sheet.rows[rowIndex].cells[8].value?"已确认":"未确认";
+          }
         }
     };
     /*************************** Info Table End **********************************/
