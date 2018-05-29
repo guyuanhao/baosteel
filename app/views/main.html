@@ -8,7 +8,6 @@
       </div>
       <kendo-grid options="main.tableMaintenance" k-data-source="main.maintenanceDataSource">
       </kendo-grid>
-
       <div class="slinput" ng-init="" style="margin-top: 50px;">
         <i class="fa fa-search left-icon"></i> 
         <input ng-keyup="main.searchInfoTable()" placeholder="enter search text..." ng-model="main.infoSearch"/> 
@@ -17,15 +16,16 @@
       </div>
       <kendo-grid options="main.tableInfo" k-data-source="main.infoDataSource">
       </kendo-grid>
-  
+      
+      
       <div id="myModal" class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
           <span class="close">&times;</span>
-          <span>{{choosedMaintenance}}选择点检目标时间: </span>
+          <span>选择点检目标时间: </span>
           <input type="date" ng-model="main.targetTime">
-          <button>创建</button>
+          <button ng-click="main.createNewRecord()">创建</button>
         </div>
       
       </div>

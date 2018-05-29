@@ -119,18 +119,16 @@ angular.module('comosAngularjsApp')
               command: [
               {
                 name: "添加点检",
-                click: function(e, choosedMaintenance) {
+                click: function(e) {
                     // prevent page scroll position change
                     e.preventDefault();
                     // e.target is the DOM element representing the button
-                    var itemId = $(e.target).closest("tr")[0].cells[0].textContent;
-                    console.log(itemId);
-                    choosedMaintenance = itemId;
+                    this.$angular_scope.choosedItemId = $(e.target).closest("tr")[0].cells[0].textContent;
+                    console.log(this.$angular_scope);
                     // Get the modal
                     var modal = document.getElementById('myModal');
                     // When the user clicks on the button, open the modal 
                     modal.style.display = "block";
-
                   }
                 },"destroy"],
               title: "&nbsp;",
@@ -335,7 +333,9 @@ angular.module('comosAngularjsApp')
       }
     }
 
-
+    self.createNewRecord = function(){
+      console.log($scope.choosedItemId);
+    }
 
 
 
