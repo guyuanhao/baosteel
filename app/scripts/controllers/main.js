@@ -184,8 +184,8 @@ angular.module('comosAngularjsApp')
           })
         },
         update:function (e) {
-          if(e.data.checkFlag){
-            delete e.data.checkFlag;
+          if(e.data.checkModifiedFlag){
+            delete e.data.checkModifiedFlag;
             console.log(e.data);
             $http.put(serverAddress + "info/" + e.data.id, e.data).then(function(response){
               e.success();
@@ -208,7 +208,7 @@ angular.module('comosAngularjsApp')
             })
           }
           else{
-            delete e.data.checkFlag;
+            delete e.data.checkModifiedFlag;
             console.log(e.data);
             $http.put(serverAddress + "info/" + e.data.id, e.data).then(function(response){
               e.success();
@@ -235,7 +235,7 @@ angular.module('comosAngularjsApp')
               editable:false
             },
             iF_CHECK: {
-              type:"boolean",
+              type:"boolean"
             },
             devicE_ID:{
               editable:false
@@ -273,7 +273,7 @@ angular.module('comosAngularjsApp')
       },
       sortable:true,
       pageable: true,
-      editable: true,
+      editable: "inline",
       scrollable: true,
       columns: [{
             field: "devicE_ID",
@@ -318,29 +318,36 @@ angular.module('comosAngularjsApp')
             title: "备注",
             width: "120px"
           },{ 
-            command: ["destroy"],
+            command: ["edit","destroy"],
             title: "&nbsp;",
-            width: "100px" 
+            width: "200px" 
           }
         ],
         selectable:true,
         save:function(data){
-          console.log(data.values);
+          //check if it's checked be modified
+          data.model.checkModifiedFlag = false;
+          if(data.model.iF_CHECK && data.model.checK_DATE==null){
+            data.model.checK_DATE = new Date();
+            data.model.checkModifiedFlag = true;
+          }
+
+          /* console.log(data.values);
           if('iF_CHECK' in data.values){
             if(data.values.iF_CHECK){
               console.log("data checked!");
               data.model.checK_DATE = new Date();
-              data.model.checkFlag = true;
+              data.model.checkModifiedFlag = true;
             }
             else{
               console.log("data unchecked!")
               data.model.checK_DATE = null;
-              data.model.checkFlag = false;
+              data.model.checkModifiedFlag = false;
             }
           }
           else{
-            data.model.checkFlag = false;
-          }
+            data.model.checkModifiedFlag = false;
+          } */
         },
         excelExport: function(e) {
           //change excel data format
