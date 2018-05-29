@@ -12,7 +12,6 @@ angular.module('comosAngularjsApp')
     var self = this;
     var maintenanceItems;
     var infoItems;
-    var targetTime;
 
 
     /*************************** Maintenance Table  **********************************/
@@ -124,11 +123,18 @@ angular.module('comosAngularjsApp')
                     e.preventDefault();
                     // e.target is the DOM element representing the button
                     this.$angular_scope.choosedItemId = $(e.target).closest("tr")[0].cells[0].textContent;
-                    console.log(this.$angular_scope);
-                    // Get the modal
-                    var modal = document.getElementById('myModal');
-                    // When the user clicks on the button, open the modal 
-                    modal.style.display = "block";
+                    
+                    $http.get(serverAddress + "info/checkInfo/" + this.$angular_scope.choosedItemId).then(function(response){
+                      if(response.data.length>0){
+                        // Get the modal
+                        var modal = document.getElementById('myModal');
+                        // When the user clicks on the button, open the modal 
+                        modal.style.display = "block";
+                      }
+                      else{
+                        alert("基础点检项目已有点检实绩");
+                      }
+                    })
                   }
                 },"destroy"],
               title: "&nbsp;",
@@ -210,6 +216,9 @@ angular.module('comosAngularjsApp')
             responsible:{
               editable:false
             },
+            targeT_TIME:{
+              editable:false
+            }
           }
         }
       },
@@ -248,6 +257,10 @@ angular.module('comosAngularjsApp')
           },{
             field: "checK_DATE",
             title: "当前时间",
+            width: "200px"
+          },{
+            field: "targeT_TIME",
+            title: "目标时间",
             width: "200px"
           },{
             field: "responsible",
@@ -325,7 +338,6 @@ angular.module('comosAngularjsApp')
     span.onclick = function() {
       modal.style.display = "none";
     }
-
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
       if (event.target == modal) {
@@ -334,7 +346,32 @@ angular.module('comosAngularjsApp')
     }
 
     self.createNewRecord = function(){
-      console.log($scope.choosedItemId);
+      console.log($scope.choosedItemId, self.choosedTargetTime);
+      var item = self.maintenanceItems.find(x => x.id == $scope.choosedItemId);
+      var tempItem = {
+        "devicE_ID": item.devicE_ID,
+        "projecT_NAME": item.projecT_NAME,
+        "detail": item.detail,
+        "keY_POINT": item.keY_POINT,
+        "indication": item.indication,
+        "targeT_TIME": self.choosedTargetTime,
+        "responsible": item.responsible,
+        "iF_CHECK": 0,
+        "note": item.note,
+        "maintenancE_ITEM": $scope.choosedItemId
+      }
+      var temp = [];
+      temp.push(tempItem)
+      console.log(tempItem);
+      $http.post(serverAddress + "info", temp).then(function(response){
+        self.infoItems.push(response.data);
+        console.log(self.infoItems);
+        $('#tableInfo').data('kendoGrid').dataSource.read();
+        modal.style.display = "none";
+        alert("成功录入点检实绩");
+      })
+
+      
     }
 
 

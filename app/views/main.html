@@ -14,7 +14,7 @@
         <i ng-class="{'fa' : true, 'fa-close' : true, 'right-icon' : true, active : (main.infoSearch.length > 0)}" 
           ng-click="main.infoSearch = '';main.searchInfoTable()"></i>
       </div>
-      <kendo-grid options="main.tableInfo" k-data-source="main.infoDataSource">
+      <kendo-grid id="tableInfo" options="main.tableInfo" k-data-source="main.infoDataSource">
       </kendo-grid>
       
       
@@ -24,7 +24,7 @@
         <div class="modal-content">
           <span class="close">&times;</span>
           <span>选择点检目标时间: </span>
-          <input type="date" ng-model="main.targetTime">
+          <input type="date" ng-model="main.choosedTargetTime">
           <button ng-click="main.createNewRecord()">创建</button>
         </div>
       
