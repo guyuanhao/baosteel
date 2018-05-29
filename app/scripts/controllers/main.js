@@ -23,6 +23,10 @@ angular.module('comosAngularjsApp')
             alert("请输入正确的设备号");
             e.error();
           }
+          else if (!(e.data.hasOwnProperty("period")&& isNumber(e.data.period))){
+            alert("请输入正确的周期（天）");
+            e.error();
+          }
           else{
             var temp = [];
             delete e.data.id;
@@ -33,6 +37,7 @@ angular.module('comosAngularjsApp')
               for (var temp of response.data){
                 self.maintenanceItems.push(temp);
               }
+              $('#tableMaintenance').data('kendoGrid').dataSource.read();
               console.log(self.maintenanceItems)
             })
           }
@@ -83,7 +88,7 @@ angular.module('comosAngularjsApp')
       selectable:true,
       columns: [{
             field:"id",
-            title:""
+            title:"id"
           },{
             field: "devicE_ID",
             title: "设备号",
@@ -162,8 +167,11 @@ angular.module('comosAngularjsApp')
           console.log(temp);
           $http.post(serverAddress + "info", temp).then(function(response){
             e.success();
-            self.infoItems.push(response.data);
-            console.log(self.infoItems)
+            for (var temp of response.data){
+              self.infoItems.push(temp);
+            }
+            console.log(self.infoItems);
+            $('#tableInfo').data('kendoGrid').dataSource.read();
           })
         },
         read:function(e) {
@@ -420,6 +428,7 @@ angular.module('comosAngularjsApp')
       return dat;
     }
 
+    function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
 
 
   });
