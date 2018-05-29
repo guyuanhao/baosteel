@@ -6,7 +6,7 @@
           <i ng-class="{'fa' : true, 'fa-close' : true, 'right-icon' : true, active : (main.maintenanceSearch.length > 0)}" 
             ng-click="main.maintenanceSearch = '';main.searchMaintenanceTable()"></i>
       </div>
-      <kendo-grid options="main.tableMaintenance" k-data-source="main.maintenanceDataSource">
+      <kendo-grid id="tableMaintenance" options="main.tableMaintenance" k-data-source="main.maintenanceDataSource">
       </kendo-grid>
       <div class="slinput" ng-init="" style="margin-top: 50px;">
         <i class="fa fa-search left-icon"></i> 

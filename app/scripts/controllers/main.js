@@ -19,15 +19,23 @@ angular.module('comosAngularjsApp')
       pageSize: 20,
       transport: {
         create:function(e){
-          var temp = [];
-          delete e.data.id;
-          temp.push(e.data)
-          console.log(temp);
-          $http.post(serverAddress + "maintenance", temp).then(function(response){
-            e.success();
-            self.maintenanceItems.push(response.data);
-            console.log(self.maintenanceItems)
-          })
+          if(!e.data.hasOwnProperty("devicE_ID")){
+            alert("请输入正确的设备号");
+            e.error();
+          }
+          else{
+            var temp = [];
+            delete e.data.id;
+            temp.push(e.data)
+            console.log(temp);
+            $http.post(serverAddress + "maintenance", temp).then(function(response){
+              e.success();
+              for (var temp of response.data){
+                self.maintenanceItems.push(temp);
+              }
+              console.log(self.maintenanceItems)
+            })
+          }
         },
         read:function(e) {
           //use AngularJS $http/$resource to fetch the data
