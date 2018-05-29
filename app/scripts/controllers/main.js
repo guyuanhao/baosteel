@@ -311,7 +311,8 @@ angular.module('comosAngularjsApp')
           },{
             field: "iF_CHECK",
             title: "确认",
-            width: "120px"
+            width: "120px",
+            template:"<span ng-if='#: iF_CHECK #'>已确认</span><span ng-if='!#: iF_CHECK #'>未确认</span>"
           },{
             field: "note",
             title: "备注",
