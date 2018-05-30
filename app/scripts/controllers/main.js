@@ -128,7 +128,8 @@ angular.module('comosAngularjsApp')
           },{
             field: "creatE_DATE",
             title: "录入时间",
-            width: "200px"
+            width: "200px",
+            template:"<span ng-bind='formatDate(dataItem.creatE_DATE)'></span>"
           },{
             field: "responsible",
             title: "责任人",
@@ -163,7 +164,17 @@ angular.module('comosAngularjsApp')
               title: "&nbsp;",
               width: "200px" 
           }
-        ]
+        ],
+        excelExport: function(e) {
+          //change excel data format
+          console.log(e);
+          var sheet = e.workbook.sheets[0];
+          for (var rowIndex = 1; rowIndex < sheet.rows.length; rowIndex++) {
+            if(sheet.rows[rowIndex].cells[7].value != null){
+              sheet.rows[rowIndex].cells[7].value = $scope.formatDate(sheet.rows[rowIndex].cells[7].value);
+            }
+          }
+        }
     };
     /*************************** Maintenance Table End  **********************************/
 
@@ -309,12 +320,14 @@ angular.module('comosAngularjsApp')
             width: "120px"
           },{
             field: "checK_DATE",
-            title: "当前时间",
-            width: "200px"
+            title: "点检时间",
+            width: "200px",
+            template:"<span ng-if='dataItem.checK_DATE' ng-bind='formatDate(dataItem.checK_DATE)'></span>"
           },{
             field: "targeT_TIME",
-            title: "目标时间",
-            width: "200px"
+            title: "目标点检时间",
+            width: "200px",
+            template:"<span ng-if='dataItem.targeT_TIME' ng-bind='formatDate(dataItem.targeT_TIME)'></span>"
           },{
             field: "responsible",
             title: "责任人",
@@ -367,6 +380,12 @@ angular.module('comosAngularjsApp')
           var sheet = e.workbook.sheets[0];
           for (var rowIndex = 1; rowIndex < sheet.rows.length; rowIndex++) {
             sheet.rows[rowIndex].cells[8].value = sheet.rows[rowIndex].cells[8].value?"已确认":"未确认";
+            if(sheet.rows[rowIndex].cells[5].value != null){
+              sheet.rows[rowIndex].cells[5].value = $scope.formatDate(sheet.rows[rowIndex].cells[5].value);
+            }
+            if(sheet.rows[rowIndex].cells[6].value != null){
+              sheet.rows[rowIndex].cells[6].value = $scope.formatDate(sheet.rows[rowIndex].cells[6].value);
+            }
           }
         }
     };
@@ -454,6 +473,17 @@ angular.module('comosAngularjsApp')
       var dat = new Date(this.valueOf());
       dat.setDate(dat.getDate() + days);
       return dat;
+    }
+    $scope.formatDate = function(date) {
+      var d = new Date(date),
+          month = '' + (d.getMonth() + 1),
+          day = '' + d.getDate(),
+          year = d.getFullYear();
+  
+      if (month.length < 2) month = '0' + month;
+      if (day.length < 2) day = '0' + day;
+  
+      return [year, month, day].join('-');
     }
 
     function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
