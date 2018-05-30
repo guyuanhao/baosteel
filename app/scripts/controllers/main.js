@@ -516,4 +516,11 @@ angular.module('comosAngularjsApp')
       $('#tableInfo').data('kendoGrid').dataSource.read();
     }
 
+    self.searchFieldKeyUp = function(e){
+      var keycode = window.event?e.keyCode:e.which;
+            if(keycode==13){
+              self.searchRecord();
+            }
+    }
+
   });
