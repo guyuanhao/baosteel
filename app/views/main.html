@@ -1,18 +1,32 @@
 <div id="example" ng-app="comosAngularjsApp">
   <div ng-controller="MainCtrl as main">
       <div class="slinput" ng-init="">
-          <i class="fa fa-search left-icon"></i> 
+          <i class="glyphicon glyphicon-search left-icon"></i> 
           <input ng-keyup="main.searchMaintenanceTable()" placeholder="enter search text..." ng-model="main.maintenanceSearch"/> 
           <i ng-class="{'fa' : true, 'fa-close' : true, 'right-icon' : true, active : (main.maintenanceSearch.length > 0)}" 
             ng-click="main.maintenanceSearch = '';main.searchMaintenanceTable()"></i>
       </div>
-      <kendo-grid id="tableMaintenance" options="main.tableMaintenance" k-data-source="main.maintenanceDataSource">
+      <kendo-grid id="tableMaintenance" options="main.tableMaintenance" 
+              k-data-source="main.maintenanceDataSource" style="margin-bottom: 50px;">
       </kendo-grid>
-      <div class="slinput" ng-init="" style="margin-top: 50px;">
+      <!-- <div class="slinput" ng-init="" style="margin-top: 50px;">
         <i class="fa fa-search left-icon"></i> 
         <input ng-keyup="main.searchInfoTable()" placeholder="enter search text..." ng-model="main.infoSearch"/> 
         <i ng-class="{'fa' : true, 'fa-close' : true, 'right-icon' : true, active : (main.infoSearch.length > 0)}" 
           ng-click="main.infoSearch = '';main.searchInfoTable()"></i>
+      </div> -->
+      <div>
+        设备号: 
+        <span class="search">
+            <span class="glyphicon glyphicon-search" style="top:1px;"></span>
+            <input placeholder="Search term" ng-class="main.searchFieldStyle" ng-model="main.searchText">
+        </span>
+        <span>
+          点检实绩查询模式:
+          <select ng-model="main.selectedSearchOption" ng-options="x for x in main.searchOptions">
+          </select>
+        </span>
+        <button ng-click="main.searchRecord()">查询</button>
       </div>
       <kendo-grid id="tableInfo" options="main.tableInfo" k-data-source="main.infoDataSource">
       </kendo-grid>
@@ -123,5 +137,33 @@
       text-decoration: none;
       cursor: pointer;
   }
+  
+  body { margin: 30px; }
+  .search {
+    position: relative;
+    font-size: 16px;
+  }
+
+/*   .search input {
+    width: 250px;
+    height: 32px;
+
+    background: #fcfcfc;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    box-shadow: 0 0 3px #ccc, 0 10px 15px #ebebeb inset;
+  } */
+
+  .search input { text-indent: 32px;}
+  .search .glyphicon-search { 
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+
+  .search-warning{
+    border : 2px solid red;
+  }
+
 </style>
 

@@ -12,6 +12,10 @@ angular.module('comosAngularjsApp')
     var self = this;
     var maintenanceItems;
     var infoItems;
+    self.searchOptions = ["All","Checked","Unchecked"];
+    self.selectedSearchOption = "All";
+    self.searchFieldStyle = "";
+    self.searchText = "";
 
 
     /*************************** Maintenance Table  **********************************/
@@ -493,6 +497,17 @@ angular.module('comosAngularjsApp')
 
     function checkIfCheckEditable(dataItem){
       return (!dataItem.iF_CHECK)
+    }
+
+    self.searchRecord = function(){
+      console.log(self.selectedSearchOption)
+      console.log(self.searchText)
+      if(self.searchText == ""){
+        self.searchFieldStyle="search-warning";
+      }
+      else{
+        self.searchFieldStyle="";
+      }
     }
 
   });
