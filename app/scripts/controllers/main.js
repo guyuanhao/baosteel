@@ -14,8 +14,8 @@ angular.module('comosAngularjsApp')
     var infoItems;
     self.searchOptions = ["All","Checked","Unchecked"];
     self.selectedSearchOption = "All";
-    self.searchFieldStyle = "";
     self.searchText = "";
+    self.readForSearch = false;
 
 
     /*************************** Maintenance Table  **********************************/
@@ -201,13 +201,26 @@ angular.module('comosAngularjsApp')
           })
         },
         read:function(e) {
-          //use AngularJS $http/$resource to fetch the data
-          //when data is fetched call o.success(result); where result is the data array
-          $http.get(serverAddress + "info").then(function(response){
-            self.infoItems = response.data;
-            e.success(self.infoItems);
-            console.log(self.infoItems);
-          })
+          if(self.searchText == ""){
+            console.log("no text, call getAll");
+            self.readForSearch = false;
+            $http.get(serverAddress + "info/GetAll/" + self.selectedSearchOption).then(function(response){
+              self.infoItems = response.data;
+              e.success(self.infoItems);
+              console.log(self.infoItems);
+            })
+          }
+          else{
+            console.log("with text, call getByDeviceID")
+            //use AngularJS $http/$resource to fetch the data
+            //when data is fetched call o.success(result); where result is the data array
+            $http.get(serverAddress + "info/getByDeviceId/" + self.searchText
+               +"/"+ self.selectedSearchOption).then(function(response){
+                  self.infoItems = response.data;
+                  e.success(self.infoItems);
+                  console.log(self.infoItems);
+            })
+          }
         },
         update:function (e) {
           if(e.data.checkModifiedFlag){
@@ -500,14 +513,7 @@ angular.module('comosAngularjsApp')
     }
 
     self.searchRecord = function(){
-      console.log(self.selectedSearchOption)
-      console.log(self.searchText)
-      if(self.searchText == ""){
-        self.searchFieldStyle="search-warning";
-      }
-      else{
-        self.searchFieldStyle="";
-      }
+      $('#tableInfo').data('kendoGrid').dataSource.read();
     }
 
   });
