@@ -11,7 +11,8 @@
 angular
   .module('comosAngularjsApp', [
     'ngRoute',
-    'kendo.directives'
+    'kendo.directives',
+    'ngFileUpload'
   ])
   .config(function ($routeProvider) {
     $routeProvider

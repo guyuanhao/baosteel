@@ -8,7 +8,7 @@
  * Controller of the comosAngularjsApp
  */
 angular.module('comosAngularjsApp')
-  .controller('MainCtrl', function ($scope, $http) {
+  .controller('MainCtrl', function ($scope, $http, Upload, $timeout) {
     var self = this;
     var maintenanceItems;
     var infoItems;
@@ -150,9 +150,11 @@ angular.module('comosAngularjsApp')
                     // prevent page scroll position change
                     e.preventDefault();
                     // e.target is the DOM element representing the button
-                    this.$angular_scope.choosedItemId = $(e.target).closest("tr")[0].cells[0].textContent;
-                    
-                    $http.get(serverAddress + "info/checkInfo/" + this.$angular_scope.choosedItemId).then(function(response){
+                    this.$angular_scope.main.choosedItemId = $(e.target).closest("tr")[0].cells[0].textContent;
+                    this.$angular_scope.main.choosedItemDeviceId = $(e.target).closest("tr")[0].cells[1].textContent;
+                    this.$angular_scope.main.choosedItemProjectName = $(e.target).closest("tr")[0].cells[2].textContent;
+                    console.log(this.$angular_scope);
+                    $http.get(serverAddress + "info/checkInfo/" + this.$angular_scope.main.choosedItemId).then(function(response){
                       if(response.data.length==0){
                         // Get the modal
                         var modal = document.getElementById('myModal');
@@ -316,6 +318,9 @@ angular.module('comosAngularjsApp')
       editable: "inline",
       scrollable: true,
       columns: [{
+            field:"id",
+            title:"id"
+          },{
             field: "devicE_ID",
             title: "设备号",
             width: "120px"
@@ -359,11 +364,18 @@ angular.module('comosAngularjsApp')
             field: "note",
             title: "备注",
             width: "120px"
+          },{
+            field: "",
+            title: "文档附件",
+            width: "120px"
           },{ 
-            command: ["edit"],
+            command: [{
+              template: '<button class=""kendo-button type="button" ngf-select="uploadFiles($file, $invalidFiles)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">上传文档</button>'
+              },"edit"],
             title: "&nbsp;",
-            width: "100px" 
+            width: "170px" 
           }
+
         ],
         selectable:true,
         save:function(data){
@@ -396,12 +408,12 @@ angular.module('comosAngularjsApp')
           console.log(e);
           var sheet = e.workbook.sheets[0];
           for (var rowIndex = 1; rowIndex < sheet.rows.length; rowIndex++) {
-            sheet.rows[rowIndex].cells[8].value = sheet.rows[rowIndex].cells[8].value?"已确认":"未确认";
-            if(sheet.rows[rowIndex].cells[5].value != null){
-              sheet.rows[rowIndex].cells[5].value = $scope.formatDate(sheet.rows[rowIndex].cells[5].value);
-            }
+            sheet.rows[rowIndex].cells[9].value = sheet.rows[rowIndex].cells[9].value?"已确认":"未确认";
             if(sheet.rows[rowIndex].cells[6].value != null){
               sheet.rows[rowIndex].cells[6].value = $scope.formatDate(sheet.rows[rowIndex].cells[6].value);
+            }
+            if(sheet.rows[rowIndex].cells[7].value != null){
+              sheet.rows[rowIndex].cells[7].value = $scope.formatDate(sheet.rows[rowIndex].cells[7].value);
             }
           }
         }
@@ -457,9 +469,9 @@ angular.module('comosAngularjsApp')
     }
 
     self.createNewRecord = function(){
-      console.log($scope.choosedItemId, self.choosedTargetTime);
+      console.log(self.choosedItemId, self.choosedTargetTime);
       if(self.choosedTargetTime != null){
-        var item = self.maintenanceItems.find(x => x.id == $scope.choosedItemId);
+        var item = self.maintenanceItems.find(x => x.id == self.choosedItemId);
         var tempItem = {
           "devicE_ID": item.devicE_ID,
           "projecT_NAME": item.projecT_NAME,
@@ -470,7 +482,7 @@ angular.module('comosAngularjsApp')
           "responsible": item.responsible,
           "iF_CHECK": 0,
           "note": item.note,
-          "maintenancE_ITEM": $scope.choosedItemId
+          "maintenancE_ITEM": self.choosedItemId
         }
         let temp = [];
         temp.push(tempItem);
@@ -522,5 +534,28 @@ angular.module('comosAngularjsApp')
               self.searchRecord();
             }
     }
+
+    //upload
+    $scope.uploadFiles = function(file, errFiles) {
+      $scope.f = file;
+      $scope.errFile = errFiles && errFiles[0];
+      if (file) {
+          file.upload = Upload.upload({
+              url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
+              data: {file: file}
+          });
+
+          file.upload.then(function (response) {
+              $timeout(function () {
+                  file.result = response.data;
+              });
+          }, function (response) {
+              if (response.status > 0)
+                  $scope.errorMsg = response.status + ': ' + response.data;
+          }, function (evt) {
+              file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+          });
+      }   
+  }
 
   });

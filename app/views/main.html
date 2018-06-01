@@ -36,6 +36,10 @@
 
         <!-- Modal content -->
         <div class="modal-content">
+          <div>
+            <span>设备号：{{main.choosedItemDeviceId}}</span>
+            <span style="margin-left: 10px;">点检项目：{{main.choosedItemProjectName}}</span>
+          </div>
           <span class="close">&times;</span>
           <span>选择点检目标时间: </span>
           <input type="date" ng-model="main.choosedTargetTime">
