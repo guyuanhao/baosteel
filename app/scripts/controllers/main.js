@@ -368,7 +368,7 @@ angular.module('comosAngularjsApp')
             field: "attacheD_FILE",
             title: "文档附件",
             width: "150px",
-            template:"<span ng-bind='main.displayFileName(this.dataItem)'></span>"
+            template:"<span style='cursor: pointer;' ng-bind='main.displayFileName(this.dataItem)' ng-click='main.downloadFile(this.dataItem.attacheD_FILE)'></span>"
           },{ 
             command: [{
               template: '<button class=""kendo-button type="button" ngf-select="uploadFiles($file, $invalidFiles, this.dataItem)" accept="*" ngf-max-size="3MB">上传文档</button>'
@@ -568,6 +568,12 @@ angular.module('comosAngularjsApp')
       else{
         return "";
       }
+    }
+
+    self.downloadFile = function(fileName){
+      console.log(fileName);
+      if(fileName)
+        window.open(serverAddress + "info/downloadFile/" + fileName);
     }
 
   });
