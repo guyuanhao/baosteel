@@ -365,15 +365,16 @@ angular.module('comosAngularjsApp')
             title: "备注",
             width: "120px"
           },{
-            field: "",
+            field: "attacheD_FILE",
             title: "文档附件",
-            width: "120px"
+            width: "150px",
+            template:"<span ng-bind='main.displayFileName(this.dataItem)'></span>"
           },{ 
             command: [{
-              template: '<button class=""kendo-button type="button" ngf-select="uploadFiles($file, $invalidFiles)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">上传文档</button>'
+              template: '<button class=""kendo-button type="button" ngf-select="uploadFiles($file, $invalidFiles, this.dataItem)" accept="*" ngf-max-size="3MB">上传文档</button>'
               },"edit"],
             title: "&nbsp;",
-            width: "170px" 
+            width: "200px" 
           }
 
         ],
@@ -536,18 +537,20 @@ angular.module('comosAngularjsApp')
     }
 
     //upload
-    $scope.uploadFiles = function(file, errFiles) {
+    $scope.uploadFiles = function(file, errFiles, item) {
+      console.log(item);
       $scope.f = file;
       $scope.errFile = errFiles && errFiles[0];
       if (file) {
           file.upload = Upload.upload({
-              url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
-              data: {file: file}
+              url: serverAddress + 'info/uploadFile',
+              data: {file: file, id:item.id}
           });
 
           file.upload.then(function (response) {
               $timeout(function () {
-                  file.result = response.data;
+                  //file.result = response.data;
+                  console.log(response.data)
               });
           }, function (response) {
               if (response.status > 0)
@@ -556,6 +559,15 @@ angular.module('comosAngularjsApp')
               file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
           });
       }   
-  }
+    }
+
+    self.displayFileName = function(dataItem){
+      if(dataItem.attacheD_FILE!=null){
+        return (dataItem.attacheD_FILE.slice(dataItem.attacheD_FILE.indexOf('M')+1));
+      }
+      else{
+        return "";
+      }
+    }
 
   });

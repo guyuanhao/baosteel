@@ -481,4 +481,5 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+  grunt.loadNpmTasks('grunt-contrib-uglify-es');
 };
