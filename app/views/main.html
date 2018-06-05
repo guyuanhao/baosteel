@@ -1,4 +1,4 @@
-<div id="example" ng-app="comosAngularjsApp">
+<div>
   <div ng-controller="MainCtrl as main">
     <div style="width:113.1%">
         <div class="slinput" ng-init="">
@@ -11,47 +11,21 @@
                 k-data-source="main.maintenanceDataSource" style="margin-bottom: 50px;">
         </kendo-grid>
     </div>
-      
-      <!-- <div class="slinput" ng-init="" style="margin-top: 50px;">
-        <i class="fa fa-search left-icon"></i> 
-        <input ng-keyup="main.searchInfoTable()" placeholder="enter search text..." ng-model="main.infoSearch"/> 
-        <i ng-class="{'fa' : true, 'fa-close' : true, 'right-icon' : true, active : (main.infoSearch.length > 0)}" 
-          ng-click="main.infoSearch = '';main.searchInfoTable()"></i>
-      </div> -->
-      <div style="width:132%">
-        设备号: 
-        <span class="search">
-            <span class="glyphicon glyphicon-search" style="top:1px;"></span>
-            <input placeholder="Search term" ng-model="main.searchText" ng-keyup="main.searchFieldKeyUp($event)">
-        </span>
-        <span>
-          点检实绩查询模式:
-          <select ng-model="main.selectedSearchOption" ng-options="x for x in main.searchOptions">
-          </select>
-        </span>
-        <button ng-click="main.searchRecord()">查询</button>
-        
-        <kendo-grid id="tableInfo" options="main.tableInfo" k-data-source="main.infoDataSource">
-        </kendo-grid>
-      </div>
-      
-      
-      <div id="myModal" class="modal">
+    <div id="myModal" class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
-          <div>
+            <div>
             <span>设备号：{{main.choosedItemDeviceId}}</span>
             <span style="margin-left: 10px;">点检项目：{{main.choosedItemProjectName}}</span>
-          </div>
-          <span class="close">&times;</span>
-          <span>选择点检目标时间: </span>
-          <input type="date" ng-model="main.choosedTargetTime">
-          <button ng-click="main.createNewRecord()">创建</button>
+            </div>
+            <span class="close">&times;</span>
+            <span>选择点检目标时间: </span>
+            <input type="date" ng-model="main.choosedTargetTime">
+            <button ng-click="main.createNewRecord()">创建</button>
         </div>
-      
-      </div>
-
+    
+    </div>
   </div>
 </div>
 
@@ -94,8 +68,6 @@
     color:#555;
   }
 
-
-
   /* right side icon style (search icon) */
   .slinput .right-icon {
     position:absolute;
@@ -107,67 +79,30 @@
     position:relative;
     width:100%;
   }
-  /* ******************************************************************************************* */
+
   /* The Modal (background) */
   .modal {
-      display: none; /* Hidden by default */
-      position: fixed; /* Stay in place */
-      z-index: 1; /* Sit on top */
-      left: 0;
-      top: 0;
-      width: 100%; /* Full width */
-      height: 100%; /* Full height */
-      overflow: auto; /* Enable scroll if needed */
-      background-color: rgb(0,0,0); /* Fallback color */
-      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
 
-  /* Modal Content/Box */
-  .modal-content {
-      background-color: #fefefe;
-      margin: 15% auto; /* 15% from the top and centered */
-      padding: 20px;
-      border: 1px solid #888;
-      width: 30%; /* Could be more or less, depending on screen size */
-  }
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 30%; /* Could be more or less, depending on screen size */
+    }
 
-  /* The Close Button */
-  .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-  }
-
-  .close:hover,
-  .close:focus {
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
-  }
-  
-  body { margin: 30px; }
-  .search {
-    position: relative;
-    font-size: 16px;
-  }
-
-/*   .search input {
-    width: 250px;
-    height: 32px;
-
-    background: #fcfcfc;
-    border: 1px solid #aaa;
-    border-radius: 5px;
-    box-shadow: 0 0 3px #ccc, 0 10px 15px #ebebeb inset;
-  } */
-
-  .search input { text-indent: 32px;}
-  .search .glyphicon-search { 
-    position: absolute;
-    top: 10px;
-    left: 10px;
-  }
 
 </style>
 

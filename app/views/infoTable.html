@@ -1,1 +1,64 @@
-<p ng-controller="InfotablectrlCtrl as main">hola {{test}}</p>
+<div ng-controller="InfotablectrlCtrl as main">
+    <div style="width:132%">
+        设备号: 
+        <span class="search">
+            <span class="glyphicon glyphicon-search" style="top:1px;"></span>
+            <input placeholder="Search term" ng-model="main.searchText" ng-keyup="main.searchFieldKeyUp($event)">
+        </span>
+        <span>
+          点检实绩查询模式:
+          <select ng-model="main.selectedSearchOption" ng-options="x for x in main.searchOptions">
+          </select>
+        </span>
+        <button ng-click="main.searchRecord()">查询</button>
+        
+        <kendo-grid id="tableInfo" options="main.tableInfo" k-data-source="main.infoDataSource">
+        </kendo-grid>
+    </div>
+      
+      
+    
+</div>
+
+<style>
+    /* ******************************************************************************************* */
+    
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    body { margin: 30px; }
+    .search {
+        position: relative;
+        font-size: 16px;
+    }
+
+    /*   .search input {
+        width: 250px;
+        height: 32px;
+
+        background: #fcfcfc;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+        box-shadow: 0 0 3px #ccc, 0 10px 15px #ebebeb inset;
+    } */
+
+    .search input { text-indent: 32px;}
+    .search .glyphicon-search { 
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+</style>
