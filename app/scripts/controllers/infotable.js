@@ -8,7 +8,7 @@
  * Controller of the comosAngularjsApp
  */
 angular.module('comosAngularjsApp')
-  .controller('InfotablectrlCtrl', function ($scope, $http, Upload, $timeout) {
+  .controller('InfotablectrlCtrl', function ($scope, $http, Upload, $timeout, shareDataService) {
     var self = this;
     var infoItems;
     
@@ -69,7 +69,7 @@ angular.module('comosAngularjsApp')
               delete e.data.checK_DATE;
               delete e.data.id;
               e.data.targeT_TIME = (new Date()).addDays(
-                self.maintenanceItems.find(x => x.id == e.data.maintenancE_ITEM).period
+                shareDataService.find(x => x.id == e.data.maintenancE_ITEM).period
               )
               temp.push(e.data)
               console.log(temp);

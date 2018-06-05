@@ -8,9 +8,9 @@
  * Controller of the comosAngularjsApp
  */
 angular.module('comosAngularjsApp')
-  .controller('MainCtrl', function ($scope, $http) {
+  .controller('MainCtrl', function ($scope, $http, shareDataService) {
     var self = this;
-    var maintenanceItems;
+    var maintenanceItems = shareDataService;
 
 
     /*************************** Maintenance Table  **********************************/
@@ -241,8 +241,7 @@ angular.module('comosAngularjsApp')
         let temp = [];
         temp.push(tempItem);
         $http.post(serverAddress + "info", temp).then(function(response){
-          self.infoItems.push(response.data);
-          $('#tableInfo').data('kendoGrid').dataSource.read();
+         // $('#tableInfo').data('kendoGrid').dataSource.read();
           modal.style.display = "none";
           alert("成功录入点检实绩");
         })
