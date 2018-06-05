@@ -132,7 +132,7 @@ angular.module('comosAngularjsApp')
           },{
             field: "creatE_DATE",
             title: "录入时间",
-            width: "200px",
+            width: "90px",
             template:"<span ng-bind='formatDate(dataItem.creatE_DATE)'></span>"
           },{
             field: "responsible",
@@ -168,7 +168,7 @@ angular.module('comosAngularjsApp')
                   }
                 },"destroy"],
               title: "&nbsp;",
-              width: "200px" 
+              width: "180px" 
           }
         ],
         excelExport: function(e) {
@@ -322,7 +322,8 @@ angular.module('comosAngularjsApp')
       scrollable: true,
       columns: [{
             field:"id",
-            title:"id"
+            title:"id",
+            width: "0px"
           },{
             field: "devicE_ID",
             title: "设备号",
@@ -346,12 +347,12 @@ angular.module('comosAngularjsApp')
           },{
             field: "checK_DATE",
             title: "点检时间",
-            width: "200px",
+            width: "90px",
             template:"<span ng-if='dataItem.checK_DATE' ng-bind='formatDate(dataItem.checK_DATE)'></span>"
           },{
             field: "targeT_TIME",
             title: "目标点检时间",
-            width: "200px",
+            width: "90px",
             template:"<span ng-if='dataItem.targeT_TIME' ng-bind='formatDate(dataItem.targeT_TIME)'></span>"
           },{
             field: "responsible",
@@ -360,7 +361,7 @@ angular.module('comosAngularjsApp')
           },{
             field: "iF_CHECK",
             title: "确认",
-            width: "120px",
+            width: "60px",
             editable:checkIfCheckEditable,
             template:"<span ng-if='#: iF_CHECK #'>已确认</span><span ng-if='!#: iF_CHECK #'>未确认</span>"
           },{
@@ -379,7 +380,7 @@ angular.module('comosAngularjsApp')
                 template: '<button class="kendo-button" type="button" ng-click="main.deleteFile(this.dataItem)" ">删除附件</button>'
                 },"edit"],
             title: "&nbsp;",
-            width: "300px" 
+            width: "255px" 
           }
 
         ],
