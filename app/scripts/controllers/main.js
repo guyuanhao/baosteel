@@ -106,16 +106,18 @@ angular.module('comosAngularjsApp')
           },{
             field: "devicE_ID",
             title: "设备号",
-            headerAttributes: {"ng-non-bindable": true},
+            attributes: {"class": "displayDetail"},
             width: "120px",
             editable:checkDeviceIdIfEditable
           },{
             field: "projecT_NAME",
             title: "点检项目",
+            attributes: {"class": "displayDetail"},
             width: "120px"
           },{
             field: "detail",
             title: "点检内容",
+            attributes: {"class": "displayDetail"},
             width: "120px"
           },{
             field: "period",
@@ -124,10 +126,12 @@ angular.module('comosAngularjsApp')
           },{
             field: "keY_POINT",
             title: "关键点",
+            attributes: {"class": "displayDetail"},
             width: "120px"
           },{
             field: "indication",
             title: "特别说明",
+            attributes: {"class": "displayDetail"},
             width: "120px"
           },{
             field: "creatE_DATE",
@@ -137,10 +141,12 @@ angular.module('comosAngularjsApp')
           },{
             field: "responsible",
             title: "责任人",
+            attributes: {"class": "displayDetail"},
             width: "120px"
           },{
             field: "note",
             title: "备注",
+            attributes: {"class": "displayDetail"},
             width: "120px"
           },{ 
               command: [
@@ -327,22 +333,27 @@ angular.module('comosAngularjsApp')
           },{
             field: "devicE_ID",
             title: "设备号",
-            width: "120px"
+            width: "120px",
+            attributes: {"class": "displayDetail"},
           },{
             field: "projecT_NAME",
             title: "点检项目",
+            attributes: {"class": "displayDetail"},
             width: "120px"
           },{
             field: "detail",
             title: "点检内容",
+            attributes: {"class": "displayDetail"},
             width: "120px"
           },{
             field: "keY_POINT",
             title: "关键点",
+            attributes: {"class": "displayDetail"},
             width: "120px"
           },{
             field: "indication",
             title: "特别说明",
+            attributes: {"class": "displayDetail"},
             width: "120px"
           },{
             field: "checK_DATE",
@@ -357,6 +368,7 @@ angular.module('comosAngularjsApp')
           },{
             field: "responsible",
             title: "责任人",
+            attributes: {"class": "displayDetail"},
             width: "120px"
           },{
             field: "iF_CHECK",
@@ -367,11 +379,13 @@ angular.module('comosAngularjsApp')
           },{
             field: "note",
             title: "备注",
+            attributes: {"class": "displayDetail"},
             width: "120px"
           },{
             field: "attacheD_FILE",
             title: "文档附件",
             width: "150px",
+            attributes: {"class": "displayDetail"},
             template:"<span style='cursor: pointer;' ng-bind='main.displayFileName(this.dataItem)' ng-click='main.downloadFile(this.dataItem.attacheD_FILE)'></span>"
           },{ 
             command: [{
@@ -432,6 +446,7 @@ angular.module('comosAngularjsApp')
     { 
       // code that will be executed ... 
       // every time this view is loaded
+      console.log($("#tableInfo"));
     });
 
     //filter table
@@ -588,13 +603,18 @@ angular.module('comosAngularjsApp')
     }
 
     $("#tableInfo").kendoTooltip({
-      filter: "td",
-      content: function(e) {return e.target.html();}
+      filter: ".displayDetail",
+      content: function(e) {
+        if(e.target[0].cellIndex != 12){
+          return e.target.html();
+        }
+      }
     });
 
     $("#tableMaintenance").kendoTooltip({
-      filter: "td",
+      filter: ".displayDetail",
       content: function(e) {return e.target.html();}
     });
 
   });
+
