@@ -550,7 +550,8 @@ angular.module('comosAngularjsApp')
           file.upload.then(function (response) {
               $timeout(function () {
                   //file.result = response.data;
-                  console.log(response.data)
+                  console.log(response.data);
+                  $('#tableInfo').data('kendoGrid').dataSource.read();
               });
           }, function (response) {
               if (response.status > 0)
