@@ -91,7 +91,12 @@ angular.module('comosAngularjsApp')
     })
 
     self.tableMaintenance={
-      toolbar: ["create","save","cancel","excel"],
+      toolbar: [
+        {name:"create", text:"创建新点检"},
+        {name:"save", text:"保存更改"},
+        {name:"cancel", text:"取消更改"},
+        {name:"excel", text:"导出excel"}
+      ],
       pdf: {
         allPages: true
       },
@@ -318,7 +323,10 @@ angular.module('comosAngularjsApp')
     })
 
     self.tableInfo={
-      toolbar: ["excel"],
+      toolbar: [{
+        name:"excel",
+        text:"导出excel"
+      }],
       pdf: {
         allPages: true
       },
@@ -391,8 +399,11 @@ angular.module('comosAngularjsApp')
             command: [{
               template: '<button class="kendo-button" type="button" ngf-select="uploadFiles($file, $invalidFiles, this.dataItem)" accept="*" ngf-max-size="3MB">上传文档</button>'
               },{
-                template: '<button class="kendo-button" type="button" ng-click="main.deleteFile(this.dataItem)" ">删除附件</button>'
-                },"edit"],
+              template: '<button class="kendo-button" type="button" ng-click="main.deleteFile(this.dataItem)" ">删除附件</button>'
+              },{
+                name:"edit",
+                text:"编辑"
+              }],
             title: "&nbsp;",
             width: "255px" 
           }
