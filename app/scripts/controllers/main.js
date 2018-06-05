@@ -439,7 +439,9 @@ angular.module('comosAngularjsApp')
           //change excel data format
           console.log(e);
           var sheet = e.workbook.sheets[0];
+          sheet.rows[0].cells.splice(11,1) //eliminate the attached file header
           for (var rowIndex = 1; rowIndex < sheet.rows.length; rowIndex++) {
+            sheet.rows[rowIndex].cells.splice(11,1)
             sheet.rows[rowIndex].cells[9].value = sheet.rows[rowIndex].cells[9].value?"已确认":"未确认";
             if(sheet.rows[rowIndex].cells[6].value != null){
               sheet.rows[rowIndex].cells[6].value = $scope.formatDate(sheet.rows[rowIndex].cells[6].value);
@@ -457,7 +459,6 @@ angular.module('comosAngularjsApp')
     { 
       // code that will be executed ... 
       // every time this view is loaded
-      console.log($("#tableInfo"));
     });
 
     //filter table
