@@ -587,4 +587,14 @@ angular.module('comosAngularjsApp')
       })
     }
 
+    $("#tableInfo").kendoTooltip({
+      filter: "td",
+      content: function(e) {return e.target.html();}
+    });
+
+    $("#tableMaintenance").kendoTooltip({
+      filter: "td",
+      content: function(e) {return e.target.html();}
+    });
+
   });
