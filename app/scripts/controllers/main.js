@@ -302,6 +302,9 @@ angular.module('comosAngularjsApp')
             },
             targeT_TIME:{
               editable:false
+            },
+            attacheD_FILE:{
+              editable:false
             }
           }
         }
@@ -371,10 +374,12 @@ angular.module('comosAngularjsApp')
             template:"<span style='cursor: pointer;' ng-bind='main.displayFileName(this.dataItem)' ng-click='main.downloadFile(this.dataItem.attacheD_FILE)'></span>"
           },{ 
             command: [{
-              template: '<button class=""kendo-button type="button" ngf-select="uploadFiles($file, $invalidFiles, this.dataItem)" accept="*" ngf-max-size="3MB">上传文档</button>'
-              },"edit"],
+              template: '<button class="kendo-button" type="button" ngf-select="uploadFiles($file, $invalidFiles, this.dataItem)" accept="*" ngf-max-size="3MB">上传文档</button>'
+              },{
+                template: '<button class="kendo-button" type="button" ng-click="main.deleteFile(this.dataItem)" ">删除附件</button>'
+                },"edit"],
             title: "&nbsp;",
-            width: "200px" 
+            width: "300px" 
           }
 
         ],
@@ -550,7 +555,6 @@ angular.module('comosAngularjsApp')
           file.upload.then(function (response) {
               $timeout(function () {
                   //file.result = response.data;
-                  console.log(response.data);
                   $('#tableInfo').data('kendoGrid').dataSource.read();
               });
           }, function (response) {
@@ -572,9 +576,14 @@ angular.module('comosAngularjsApp')
     }
 
     self.downloadFile = function(fileName){
-      console.log(fileName);
       if(fileName)
         window.open(serverAddress + "info/downloadFile/" + fileName);
+    }
+
+    self.deleteFile = function(dataItem){
+      $http.delete(serverAddress + "info/" + dataItem.id).then(function(response){
+        $('#tableInfo').data('kendoGrid').dataSource.read();
+      })
     }
 
   });
