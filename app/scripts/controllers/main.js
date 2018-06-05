@@ -93,8 +93,6 @@ angular.module('comosAngularjsApp')
     self.tableMaintenance={
       toolbar: [
         {name:"create", text:"创建新点检"},
-        {name:"save", text:"保存更改"},
-        {name:"cancel", text:"取消更改"},
         {name:"excel", text:"导出excel"}
       ],
       pdf: {
@@ -102,12 +100,13 @@ angular.module('comosAngularjsApp')
       },
       pageable: true,
       sortable:true,
-      editable: true,
+      editable: "inline",
       scrollable: true,
       selectable:true,
       columns: [{
             field:"id",
-            title:"id"
+            title:"id",
+            width: "0px"
           },{
             field: "devicE_ID",
             title: "设备号",
@@ -177,9 +176,12 @@ angular.module('comosAngularjsApp')
                       }
                     })
                   }
-                },"destroy"],
+                },
+                {name:"edit", text:"编辑"},
+                {name:"destroy", text:"删除点检"}
+              ],
               title: "&nbsp;",
-              width: "180px" 
+              width: "260px" 
           }
         ],
         excelExport: function(e) {
