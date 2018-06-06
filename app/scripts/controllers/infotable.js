@@ -69,7 +69,7 @@ angular.module('comosAngularjsApp')
               delete e.data.checK_DATE;
               delete e.data.id;
               e.data.targeT_TIME = (new Date()).addDays(
-                shareDataService.find(x => x.id == e.data.maintenancE_ITEM).period
+                shareDataService.getMaintenanceItems().find(x => x.id == e.data.maintenancE_ITEM).period
               )
               temp.push(e.data)
               console.log(temp);

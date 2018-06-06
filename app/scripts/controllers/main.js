@@ -10,7 +10,7 @@
 angular.module('comosAngularjsApp')
   .controller('MainCtrl', function ($scope, $http, shareDataService) {
     var self = this;
-    var maintenanceItems = shareDataService;
+    self.maintenanceItems;
 
 
     /*************************** Maintenance Table  **********************************/
@@ -34,7 +34,7 @@ angular.module('comosAngularjsApp')
             $http.post(serverAddress + "maintenance", temp).then(function(response){
               e.success();
               for (var temp of response.data){
-                self.maintenanceItems.push(temp);
+                shareDataService.addItem(temp)
               }
               $('#tableMaintenance').data('kendoGrid').dataSource.read();
               console.log(self.maintenanceItems)
@@ -46,8 +46,9 @@ angular.module('comosAngularjsApp')
           //when data is fetched call o.success(result); where result is the data array
           $http.get(serverAddress + "maintenance").then(function(response){
             self.maintenanceItems = response.data;
+            shareDataService.setMaintenanceItems(response.data);
+            console.log(shareDataService.getMaintenanceItems());
             e.success(self.maintenanceItems);
-            console.log(self.maintenanceItems);
           })
         },
         update:function (e) {
