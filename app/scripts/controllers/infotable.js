@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * @ngdoc function
@@ -28,7 +28,7 @@ angular.module('comosAngularjsApp')
           console.log(temp);
           $http.post(serverAddress + "info", temp).then(function(response){
             e.success();
-            for (var temp of response.data){
+            for (var temp=0;temp<response.data.length;temp++){
               self.infoItems.push(temp);
             }
             console.log(self.infoItems);
@@ -68,8 +68,15 @@ angular.module('comosAngularjsApp')
               e.data.iF_CHECK = 0;
               delete e.data.checK_DATE;
               delete e.data.id;
+              var item;
+              for(var tmp=0;tmp<shareDataService.getMaintenanceItems().length;tmp++){
+                if(shareDataService.getMaintenanceItems()[tmp].id == e.data.maintenancE_ITEM){
+                  item = shareDataService.getMaintenanceItems()[tmp];
+                  break;
+                }
+              }
               e.data.targeT_TIME = (new Date()).addDays(
-                shareDataService.getMaintenanceItems().find(x => x.id == e.data.maintenancE_ITEM).period
+                item.period
               )
               temp.push(e.data)
               console.log(temp);

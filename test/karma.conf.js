@@ -20,12 +20,17 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       // bower:js
-      'bower_components/angular/angular.js',
       'bower_components/jquery/dist/jquery.js',
       'bower_components/bootstrap/dist/js/bootstrap.js',
+      'bower_components/angular/angular.js',
       'bower_components/angular-route/angular-route.js',
       'bower_components/ng-file-upload/ng-file-upload.js',
       'bower_components/ng-file-upload-shim/ng-file-upload-shim.js',
+      'bower_components/better-dom/dist/better-dom.js',
+      'bower_components/better-dom/dist/better-dom-legacy.js',
+      'bower_components/better-i18n-plugin/dist/better-i18n-plugin.js',
+      'bower_components/better-time-element/dist/better-time-element.js',
+      'bower_components/better-dateinput-polyfill/dist/better-dateinput-polyfill.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

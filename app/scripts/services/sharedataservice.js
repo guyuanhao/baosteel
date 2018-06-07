@@ -8,11 +8,14 @@
  * Service in the comosAngularjsApp.
  */
 angular.module('comosAngularjsApp')
-  .service('shareDataService', function () {
+  .service('shareDataService', function ($http) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     var data={
       maintenanceItems:[]
     };
+    $http.get(serverAddress + "maintenance").then(function(response){
+      data.maintenanceItems = response.data;
+    })
     return {
       getMaintenanceItems: function(){
         return data.maintenanceItems;

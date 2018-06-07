@@ -33,7 +33,7 @@ angular.module('comosAngularjsApp')
             console.log(temp);
             $http.post(serverAddress + "maintenance", temp).then(function(response){
               e.success();
-              for (var temp of response.data){
+              for (var temp=0;temp<response.data.length;temp++){
                 shareDataService.addItem(temp)
               }
               $('#tableMaintenance').data('kendoGrid').dataSource.read();
@@ -226,7 +226,14 @@ angular.module('comosAngularjsApp')
     self.createNewRecord = function(){
       console.log(self.choosedItemId, self.choosedTargetTime);
       if(self.choosedTargetTime != null){
-        var item = self.maintenanceItems.find(x => x.id == self.choosedItemId);
+        var item;
+//        var item = self.maintenanceItems.find(x => x.id == self.choosedItemId);
+        for(var tmp=0;tmp<self.maintenanceItems.length;tmp++){
+          if(self.maintenanceItems[tmp].id == self.choosedItemId){
+            item = self.maintenanceItems[tmp];
+            break;
+          }
+        }
         var tempItem = {
           "devicE_ID": item.devicE_ID,
           "projecT_NAME": item.projecT_NAME,
