@@ -93,6 +93,7 @@ angular.module('comosAngularjsApp')
             console.log(e.data);
             $http.put(serverAddress + "info/" + e.data.id, e.data).then(function(response){
               e.success();
+              $('#tableInfo').data('kendoGrid').dataSource.read();
             })
           }
         }
