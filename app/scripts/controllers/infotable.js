@@ -14,7 +14,7 @@ angular.module('comosAngularjsApp')
     
     self.searchText = "";
     self.searchOptions = ["All","Checked","Unchecked"];
-    self.selectedSearchOption = "All";
+    self.selectedSearchOption = "Unchecked";
     self.readForSearch = false;
 
     /*************************** Info Table **********************************/
@@ -166,6 +166,7 @@ angular.module('comosAngularjsApp')
           }
         }
       },
+      filter: { field: "targeT_TIME", operator: "lte", value:new Date() }
     })
 
     self.tableInfo={
