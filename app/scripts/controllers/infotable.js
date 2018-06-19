@@ -110,6 +110,20 @@ angular.module('comosAngularjsApp')
       },
       sort: { field: "iF_CHECK", dir: "asce" },
       schema: {
+        parse: function(data) {
+          var events = [];
+          for (var i = 0; i < data.length; i++) {
+            var event = data[i];
+            if(event.checK_DATE != null){
+              event.checK_DATE = event.checK_DATE.slice(0,10);
+            }
+            if(event.targeT_TIME != null){
+              event.targeT_TIME = event.targeT_TIME.slice(0,10);
+            }
+            events.push(event);
+          }
+          return events;
+        },
         model: {
           id: "id",
           fields: {
@@ -136,13 +150,15 @@ angular.module('comosAngularjsApp')
               editable:false
             },
             checK_DATE:{
-              editable:false
+              editable:false,
+              type: "date" 
             },
             responsible:{
               editable:false
             },
             targeT_TIME:{
-              editable:false
+              editable:false,
+              type: "date" 
             },
             attacheD_FILE:{
               editable:false
@@ -160,6 +176,7 @@ angular.module('comosAngularjsApp')
       pdf: {
         allPages: true
       },
+      filterable:true,
       sortable:true,
       pageable: true,
       editable: "inline",
@@ -167,7 +184,8 @@ angular.module('comosAngularjsApp')
       columns: [{
             field:"id",
             title:"id",
-            width: "0px"
+            width: "0px",
+            filterable:false,
           },{
             field: "devicE_ID",
             title: "设备号",
@@ -197,12 +215,20 @@ angular.module('comosAngularjsApp')
             field: "checK_DATE",
             title: "点检时间",
             width: "90px",
-            template:"<span ng-if='dataItem.checK_DATE' ng-bind='formatDate(dataItem.checK_DATE)'></span>"
+            attributes: {"class": "displayDetail"},
+            template:"<span ng-if='dataItem.checK_DATE' ng-bind='formatDate(dataItem.checK_DATE)'></span>",
+            filterable: {
+              ui: "datepicker"
+            }
           },{
             field: "targeT_TIME",
             title: "目标点检时间",
             width: "90px",
-            template:"<span ng-if='dataItem.targeT_TIME' ng-bind='formatDate(dataItem.targeT_TIME)'></span>"
+            attributes: {"class": "displayDetail"},
+            template:"<span ng-if='dataItem.targeT_TIME' ng-bind='formatDate(dataItem.targeT_TIME)'></span>",
+            filterable: {
+              ui: "datepicker"
+            }
           },{
             field: "responsible",
             title: "责任人",
